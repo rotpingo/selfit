@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 
 @Component({
   selector: 'app-top-bar',
@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './top-bar.css'
 })
 export class TopBar {
+  menuClick = output<void>();
 
+  onMenuClick() {
+    this.menuClick.emit();
+  }
 }

@@ -1,2 +1,8 @@
-<app-top-bar />
+<app-top-bar (menuClick)="onSideBarOpen()" />
+
+@if(sideBarOpen()){
+<app-backdrop (close)="onSideBarClose()" />
+}
+
+<app-side-bar [isOpen]="sideBarOpen()" />
 <router-outlet />
