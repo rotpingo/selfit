@@ -4,5 +4,8 @@
 <app-backdrop (close)="onSideBarClose()" />
 }
 
-<app-side-bar [isOpen]="sideBarOpen()" />
-<router-outlet />
+<app-side-bar [isOpen]="sideBarOpen()" (navigate)="onSideBarClose()" />
+
+<div class="app-container">
+  <router-outlet />
+</div>

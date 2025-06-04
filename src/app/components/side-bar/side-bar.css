@@ -29,7 +29,3 @@ ul {
   align-content: center;
   cursor: pointer;
 }
-
-.list-item:focus {
-  background-color: white;
-}
