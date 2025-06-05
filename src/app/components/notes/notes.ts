@@ -10,15 +10,12 @@ import { Note } from '../../model/note.model';
 })
 export class Notes {
 
-  // notes = signal<Note[]>([]);
   noteService = inject(NoteService);
 
   notes = resource<Note[], unknown>({
     loader: async () => {
       // const notes = await this.noteService.getNotes();
-      const notes = await this.noteService.getNotes();
-      console.log(notes);
-      return notes;
-    }
-  })
+      return await this.noteService.getNotes();
+    },
+  });
 }
