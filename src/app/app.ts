@@ -11,9 +11,11 @@ import { Backdrop } from './components/shared/backdrop/backdrop';
   styleUrl: './app.css'
 })
 export class App {
+
   protected title = 'selfit';
 
   sideBarOpen = signal<boolean>(false);
+
 
   onSideBarOpen() {
     this.sideBarOpen.set(true);

@@ -1,9 +1,6 @@
-<p>notes works!</p>
-<p>notes works!</p>
-<p>notes works!</p>
-<p>notes works!</p>
-<p>notes works!</p>
-<p>notes works!</p>
-<p>notes works!</p>
-<p>notes works!</p>
-<p>notes works!</p>
+@for (note of notes(); track note.id) {
+<div>
+  <h3>{{ note.title }}</h3>
+  <p>{{ note.content }}</p>
+</div>
+}
