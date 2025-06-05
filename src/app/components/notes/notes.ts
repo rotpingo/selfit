@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, resource, ResourceRef, signal } from '@angular/core';
+import { Component, inject, resource } from '@angular/core';
 import { NoteService } from '../../services/note.service';
 import { Note } from '../../model/note.model';
 
@@ -8,14 +8,17 @@ import { Note } from '../../model/note.model';
   templateUrl: './notes.html',
   styleUrl: './notes.css'
 })
-export class Notes implements OnInit {
+export class Notes {
 
-  notes = signal<Note[]>([]);
+  // notes = signal<Note[]>([]);
   noteService = inject(NoteService);
 
-  ngOnInit(): void {
-    this.noteService.getNotes().then(data => {
-      this.notes.set(data);
-    });
-  }
+  notes = resource<Note[], unknown>({
+    loader: async () => {
+      // const notes = await this.noteService.getNotes();
+      const notes = await this.noteService.getNotes();
+      console.log(notes);
+      return notes;
+    }
+  })
 }
