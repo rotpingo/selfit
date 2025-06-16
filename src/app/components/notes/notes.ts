@@ -12,6 +12,7 @@ export class Notes {
 
   noteService = inject(NoteService);
 
+  // TODO: change function to rxjs Observables
   notes = resource<Note[], unknown>({
     loader: async () => {
       // const notes = await this.noteService.getNotes();
