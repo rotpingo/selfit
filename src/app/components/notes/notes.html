@@ -1,3 +1,7 @@
+@if(isFormOpen()){
+  <app-backdrop (close)="onCloseForm()" />
+}
+
 <div class="space"></div>
 @for (note of notes.value(); track note.id) {
 <div class="note-item">
@@ -5,4 +9,17 @@
 </div>
 }
 
-<button class="add-note-btn">+</button>
+<button class="add-note-btn" (click)="onAddForm()">+</button>
+
+<form class="add-note-form" [formGroup]="noteForm" (ngSubmit)="onSubmit()" #form>
+  <h3>new Note</h3>
+  <label class="form-label">note title</label>
+  <input class="form-input" type="text" formControlName="title">
+
+  <label class="form-label">note description</label>
+  <textarea class="form-textarea" rows="10" formControlName="description"></textarea>
+  <div class="form-btns">
+    <button id="cancel-btn" type="button" (click)="onCloseForm()">cancel</button>
+    <button id="create-btn" type="submit">create</button>
+  </div>
+</form>
