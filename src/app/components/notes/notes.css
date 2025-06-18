@@ -20,11 +20,13 @@
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  height: 3.5rem;
-  width: 3.5rem;
-  border-radius: 18px;
-  box-shadow: none;
-  border: none;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 14px;
+  color: #252525;
+  border: 1px dashed #252525;
+  background: #e0e0e0;
+  font-size: 1.3rem;
 }
 
 .add-note-btn:hover {
@@ -38,7 +40,7 @@
   top: 40%;
   transform: translate(-50%, -50%);
   padding: 1.2rem;
-  width: 70vw;
+  width: 80vw;
   border: 1px solid black;
   border-radius: 10px;
   z-index: 150;
