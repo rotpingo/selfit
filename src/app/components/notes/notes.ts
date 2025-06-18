@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, resource, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, Signal, signal, viewChild } from '@angular/core';
 import { NoteService } from '../../services/note.service';
 import { Note } from '../../model/note.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -26,13 +26,7 @@ export class Notes {
   form = viewChild.required<ElementRef<HTMLFormElement>>('form');
   noteService = inject(NoteService);
 
-  // TODO: change function to rxjs Observables
-  notes = resource<Note[], unknown>({
-    loader: async () => {
-      // const notes = await this.noteService.getNotes();
-      return await this.noteService.getNotes();
-    },
-  });
+  notes: Signal<Note[]> = this.noteService.getNotesSignal();
 
   onCloseForm() {
     this.form().nativeElement.style.display = "none";
@@ -45,9 +39,21 @@ export class Notes {
     this.form().nativeElement.style.display = "flex";
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.noteForm.valid) {
-      console.log(this.noteForm.value);
+
+      const newNote: Note = {
+        title: this.noteForm.value.title!,
+        content: this.noteForm.value.description!,
+        createdAt: new Date(Date.now())!,
+      };
+
+      try {
+        await this.noteService.addNote(newNote);
+        this.onCloseForm();
+      } catch (error) {
+        console.error('Error adding note: ', error);
+      }
     } else {
       console.log('Invalid Form')
     }
