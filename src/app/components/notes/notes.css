@@ -14,6 +14,7 @@
 
 .note-item:hover {
   background-color: #252525;
+  color: wheat;
 }
 
 .add-note-btn {

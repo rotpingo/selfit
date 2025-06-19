@@ -3,10 +3,11 @@ import { NoteService } from '../../services/note.service';
 import { Note } from '../../model/note.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Backdrop } from '../shared/backdrop/backdrop';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-notes',
-  imports: [ReactiveFormsModule, Backdrop],
+  imports: [ReactiveFormsModule, Backdrop, RouterLink],
   templateUrl: './notes.html',
   styleUrl: './notes.css'
 })
