@@ -1,9 +1,9 @@
 import Dexie, { Table } from "dexie";
-import { Note } from "../model/note.model";
+import { NoteModel } from "../model/note.model";
 
 export class AppDB extends Dexie {
 
-  notes!: Table<Note>;
+  notes!: Table<NoteModel>;
 
   constructor() {
     super('selfit');

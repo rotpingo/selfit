@@ -1,6 +1,6 @@
 import { Component, ElementRef, inject, Signal, signal, viewChild } from '@angular/core';
 import { NoteService } from '../../services/note.service';
-import { Note } from '../../model/note.model';
+import { NoteModel } from '../../model/note.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Backdrop } from '../shared/backdrop/backdrop';
 import { RouterLink } from '@angular/router';
@@ -27,7 +27,7 @@ export class Notes {
   form = viewChild.required<ElementRef<HTMLFormElement>>('form');
   noteService = inject(NoteService);
 
-  notes: Signal<Note[]> = this.noteService.getNotesSignal();
+  notes: Signal<NoteModel[]> = this.noteService.getNotesSignal();
 
   onCloseForm() {
     this.form().nativeElement.style.display = "none";
@@ -43,7 +43,7 @@ export class Notes {
   async onSubmit() {
     if (this.noteForm.valid) {
 
-      const newNote: Note = {
+      const newNote: NoteModel = {
         title: this.noteForm.value.title!,
         content: this.noteForm.value.description!,
         createdAt: new Date(Date.now())!,

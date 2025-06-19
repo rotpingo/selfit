@@ -1,6 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { NoteService } from '../../../services/note.service';
 import { ActivatedRoute } from '@angular/router';
+import { NoteModel } from '../../../model/note.model';
 
 @Component({
   selector: 'app-note',
@@ -8,17 +9,15 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './note.html',
   styleUrl: './note.css'
 })
-export class Note implements OnInit {
+export class Note {
 
   noteService = inject(NoteService);
   activeRoute = inject(ActivatedRoute);
 
-  ngOnInit(): void {
-    this.getNote();
-  }
+  noteId = parseInt(this.activeRoute.snapshot.paramMap.get('id')!);
+  note: Signal<NoteModel | undefined>;
 
-  getNote() {
-    const noteId = parseInt(this.activeRoute.snapshot.paramMap.get('id')!);
-    const note = this.noteService.getNote(noteId);
+  constructor() {
+    this.note = this.noteService.getNoteSignal(this.noteId);
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable, Signal } from '@angular/core';
 import { db } from '../data/db';
-import { Note } from '../model/note.model';
+import { NoteModel } from '../model/note.model';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { liveQuery } from 'dexie';
 import { from } from 'rxjs';
@@ -12,24 +12,24 @@ export class NoteService {
 
   constructor() { }
 
-  getNotesSignal(): Signal<Note[]> {
+  getNotesSignal(): Signal<NoteModel[]> {
     return toSignal(
       liveQuery(() => db.notes.toArray()),
       { initialValue: [] }
     );
   }
 
-  getNotes(): Promise<Note[]> {
+  getNotes(): Promise<NoteModel[]> {
     return db.notes.toArray();
   }
 
-  addNote(note: Note) {
+  addNote(note: NoteModel) {
     return db.notes.add({ ...note });
   }
 
-  getNoteSignal(id: number): Signal<Note | undefined> {
-    const note$ = liveQuery(() => db.notes.get(id));
-    return toSignal(from(note$), { initialValue: undefined });
+  getNoteSignal(id: number): Signal<NoteModel | undefined> {
+    return toSignal(from(liveQuery(() => db.notes.get(id))),
+      { initialValue: undefined });
   }
 
   getNote(id: number) {
