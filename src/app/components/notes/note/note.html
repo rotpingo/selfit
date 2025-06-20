@@ -1,5 +1,4 @@
-@if(this.note()?.title){
-{{this.note()?.title}}
-} @else {
-NO CONTENT
-}
+<div class="note">
+  <h2 class="note-title">{{this.note()?.title}}</h2>
+  <textArea class="note-content">{{this.note()?.content}}</textArea>
+</div>

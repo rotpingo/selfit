@@ -20,7 +20,7 @@ export class Notes {
       validators: [Validators.maxLength(16), Validators.minLength(4), Validators.required],
     }),
     description: new FormControl('', {
-      validators: [Validators.minLength(10), Validators.maxLength(50), Validators.required],
+      validators: [Validators.minLength(10), Validators.required],
     }),
   });
 
