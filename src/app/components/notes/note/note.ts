@@ -54,12 +54,14 @@ export class Note {
     this.isEditMode.set(false);
   }
 
-  onCancel() {
-    this.isEditMode.set(false);
-  }
-
   onSubmit() {
 
-  }
+    const editNote: NoteModel = {
+      title: this.noteForm.value.title ?? '',
+      content: this.noteForm.value.description ?? ''
+    }
 
+    this.noteService.editNoteById(this.noteId, editNote);
+    this.router.navigate(["/notes"]);
+  }
 }

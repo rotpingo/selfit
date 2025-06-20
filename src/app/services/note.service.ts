@@ -41,6 +41,7 @@ export class NoteService {
   }
 
   editNoteById(id: number, note: NoteModel) {
+    this.deleteNoteById(id);
     return db.notes.put(note, id);
   }
 }

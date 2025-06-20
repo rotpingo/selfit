@@ -1,9 +1,9 @@
-<app-top-bar (menuClick)="onSideBarOpen()" />
 
 @if(sideBarOpen()){
 <app-backdrop (close)="onSideBarClose()" />
 }
 
+<app-top-bar (menuClick)="onSideBarOpen()" />
 <app-side-bar [isOpen]="sideBarOpen()" (navigate)="onSideBarClose()" />
 
 <div class="app-container">

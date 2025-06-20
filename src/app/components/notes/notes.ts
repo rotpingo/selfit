@@ -33,6 +33,7 @@ export class Notes {
     this.form().nativeElement.style.display = "none";
     this.isFormOpen.set(false);
     this.noteForm.reset();
+    console.log(this.notes());
   }
 
   onAddForm() {
