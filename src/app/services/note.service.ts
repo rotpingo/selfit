@@ -27,12 +27,20 @@ export class NoteService {
     return db.notes.add({ ...note });
   }
 
-  getNoteSignal(id: number): Signal<NoteModel | undefined> {
+  getNoteSignalById(id: number): Signal<NoteModel | undefined> {
     return toSignal(from(liveQuery(() => db.notes.get(id))),
       { initialValue: undefined });
   }
 
-  getNote(id: number) {
+  getNoteById(id: number) {
     return db.notes.get(id);
+  }
+
+  deleteNoteById(id: number) {
+    return db.notes.delete(id);
+  }
+
+  editNoteById(id: number, note: NoteModel) {
+    return db.notes.put(note, id);
   }
 }
