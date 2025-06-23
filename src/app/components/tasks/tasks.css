@@ -1,48 +1,41 @@
-.note {
-  display: flex;
-  flex-direction: column;
+.space {
+  width: 100vw;
+  height: 0.5rem;
+}
+
+.task-item {
+  height: 4rem;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 1rem;
   padding: 1rem;
-}
-
-.note span {
-  margin-bottom: 0.5rem;
-  font-size: 0.8rem;
-  align-self: self-end;
-}
-
-.note-title {
   text-align: center;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-  border: 1px solid #252525;
-  border-radius: 6px;
 }
 
-.note-content {
-  border: none;
-  resize: none;
-  font-size: 1rem;
-  height: 75vh;
+.task-item:hover {
+  background-color: #252525;
+  color: wheat;
 }
 
-.note-btns {
-  align-self: center;
+.add-task-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 14px;
+  color: #252525;
+  border: 1px dashed #252525;
+  background: #e0e0e0;
+  font-size: 1.3rem;
 }
 
-.edit-btn {
-  margin: 2rem 3rem 0rem 0rem;
-  width: 4rem;
-  height: 2rem;
+.add-task-btn:hover {
+  color: #262626;
 }
 
-.delete-btn {
-  margin: 2rem 0rem 0rem 3rem;
-  width: 4rem;
-  height: 2rem;
-}
-
-.edit-form {
-  display: flex;
+.add-task-form {
+  display: none;
   position: fixed;
   left: 50%;
   top: 40%;
@@ -78,7 +71,7 @@
 }
 
 #cancel-btn {
-  margin-right: 2rem;
+  margin-right: 1rem;
   margin-top: 1rem;
   height: 2rem;
   width: 4rem;
@@ -88,8 +81,8 @@
   border-radius: 6px;
 }
 
-#save-btn {
-  margin-left: 2rem;
+#create-btn {
+  margin-left: 1rem;
   margin-top: 1rem;
   height: 2rem;
   width: 4rem;
