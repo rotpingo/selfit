@@ -4,6 +4,12 @@
   padding: 1rem;
 }
 
+.note span {
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  align-self: self-end;
+}
+
 .note-title {
   text-align: center;
   margin-bottom: 1rem;

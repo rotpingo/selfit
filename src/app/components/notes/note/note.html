@@ -1,5 +1,6 @@
 <div class="note">
   <input class="note-title" type="text" value="{{this.note()?.title}}" [readOnly]="true">
+  <span>{{this.note()?.createdAt | date:'fullDate' }}</span>
   <textArea class="note-content" [readOnly]="true">{{this.note()?.content}}</textArea>
   <div class="note-btns">
     <button class="edit-btn" type="button" (click)="onEdit()">edit</button>

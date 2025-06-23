@@ -4,10 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NoteModel } from '../../../model/note.model';
 import { Backdrop } from '../../shared/backdrop/backdrop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-note',
-  imports: [Backdrop, ReactiveFormsModule],
+  imports: [Backdrop, ReactiveFormsModule, DatePipe],
   templateUrl: './note.html',
   styleUrl: './note.css'
 })
