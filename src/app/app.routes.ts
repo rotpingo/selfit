@@ -3,6 +3,7 @@ import { Notes } from './components/notes/notes';
 import { Home } from './components/home/home';
 import { Note } from './components/notes/note/note';
 import { Tasks } from './components/tasks/tasks';
+import { Task } from './components/tasks/task/task';
 
 export const routes: Routes = [
   {
@@ -20,5 +21,9 @@ export const routes: Routes = [
   {
     path: 'tasks',
     component: Tasks,
+  },
+  {
+    path: 'tasks/:id',
+    component: Task
   }
 ];
