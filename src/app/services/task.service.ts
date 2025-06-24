@@ -40,13 +40,13 @@ export class TaskService {
     return db.tasks.get(id);
   }
 
-  deleteTaskById(id: number) {
-    return db.tasks.delete(id);
+  async deleteTaskById(id: number) {
+    return await db.tasks.delete(id);
   }
 
-  editTaskById(id: number, task: TaskModel) {
-    this.deleteTaskById(id);
+  async editTaskById(id: number, task: TaskModel) {
+    await this.deleteTaskById(id);
     task.updatedAt = new Date(Date.now());
-    return db.tasks.put(task, id);
+    return await db.tasks.put(task, id);
   }
 }
