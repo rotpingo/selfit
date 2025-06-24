@@ -23,8 +23,12 @@ export class TaskService {
     return db.tasks.toArray();
   }
 
-  addTask(task: TaskModel) {
-    return db.tasks.add({ ...task });
+  async createTask(task: TaskModel) {
+    const id = await db.tasks.add({ ...task });
+    await db.tasks.update(id, { parentId: id });
+
+    const newTask = await db.tasks.get(id);
+    return newTask;
   }
 
   getTaskSignalById(id: number): Signal<TaskModel | undefined> {
@@ -42,7 +46,7 @@ export class TaskService {
 
   editTaskById(id: number, task: TaskModel) {
     this.deleteTaskById(id);
-    task.createdAt = new Date(Date.now());
+    task.updatedAt = new Date(Date.now());
     return db.tasks.put(task, id);
   }
 }

@@ -26,8 +26,11 @@ export class Task {
     title: new FormControl('', {
       validators: [Validators.maxLength(16), Validators.minLength(4), Validators.required],
     }),
-    description: new FormControl('', {
+    content: new FormControl('', {
       validators: [Validators.minLength(10), Validators.required],
+    }),
+    execDate: new FormControl('', {
+      validators: [Validators.required],
     }),
   });
 
@@ -47,7 +50,7 @@ export class Task {
     this.isEditMode.set(true);
     this.taskForm.patchValue({
       title: this.task()?.title,
-      description: this.task()?.content
+      content: this.task()?.content
     });
   }
 
@@ -59,7 +62,11 @@ export class Task {
 
     const editTask: TaskModel = {
       title: this.taskForm.value.title ?? '',
-      content: this.taskForm.value.description ?? ''
+      content: this.taskForm.value.content ?? '',
+      parentId: 0,
+      status: 'progress',
+      isRepeat: false,
+      execDate: this.taskForm.value.execDate ?? ''
     }
 
     this.taskService.editTaskById(this.taskId, editTask);

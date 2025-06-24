@@ -35,7 +35,7 @@
 }
 
 .add-task-form {
-  display: none;
+  display: flex;
   position: fixed;
   left: 50%;
   top: 40%;
@@ -50,11 +50,16 @@
   color: wheat;
 }
 
+.add-task-form h3 {
+  margin-bottom: 1rem;
+}
+
 .form-label {
-  margin-top: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .form-input {
+  margin-bottom: 0.5rem;
   line-height: 1.5rem;
   font-size: 1rem;
 }
@@ -63,6 +68,25 @@
   resize: none;
   line-height: 1.5rem;
   font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.form-box-number {
+  display: flex;
+  margin: 1rem 0;
+  border: 1px solid wheat;
+}
+
+.form-input-number {
+  height: 1.5rem;
+  width: 4rem;
 }
 
 .form-btns {

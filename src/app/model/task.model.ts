@@ -1,13 +1,13 @@
 export interface TaskModel {
   id?: number;
-  parentId: number;
+  parentId?: number;
   title: string;
   content: string;
   isRepeat: boolean;
   interval?: number;
   status: 'done' | 'canceled' | 'progress';
   notes?: string;
-  execDate: Date;
+  execDate: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

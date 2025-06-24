@@ -15,7 +15,9 @@
   <label class="form-label">task title</label>
   <input class="form-input" type="text" formControlName="title">
   <label class="form-label">task description</label>
-  <textarea class="form-textarea" rows="10" formControlName="description"></textarea>
+  <textarea class="form-textarea" rows="10" formControlName="content"></textarea>
+  <label class="form-label">task date</label>
+  <input class="form-input-date" type="date" formControlName="execDate">
   <div class="form-btns">
     <button id="cancel-btn" type="button" (click)="onCloseForm()">cancel</button>
     <button id="save-btn" type="submit">save</button>

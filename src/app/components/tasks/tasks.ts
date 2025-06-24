@@ -23,8 +23,13 @@ export class Tasks {
     title: new FormControl('', {
       validators: [Validators.maxLength(16), Validators.minLength(4), Validators.required],
     }),
-    description: new FormControl('', {
+    content: new FormControl('', {
       validators: [Validators.minLength(10), Validators.required],
+    }),
+    repeat: new FormControl(false),
+    interval: new FormControl(0),
+    execDate: new FormControl('', {
+      validators: [Validators.required],
     }),
   });
 
@@ -46,12 +51,19 @@ export class Tasks {
 
       const newTask: TaskModel = {
         title: this.taskForm.value.title!,
-        content: this.taskForm.value.description!,
-        createdAt: new Date(Date.now())!,
+        content: this.taskForm.value.content!,
+        parentId: -1,
+        isRepeat: this.taskForm.value.repeat ?? false,
+        interval: this.taskForm.value.interval ?? 1,
+        status: 'progress',
+        execDate: this.taskForm.value.execDate!,
+        updatedAt: new Date(Date.now()),
+        createdAt: new Date(Date.now()),
+
       };
 
       try {
-        await this.taskService.addTask(newTask);
+        await this.taskService.createTask(newTask);
         this.onCloseForm();
       } catch (error) {
         console.error('Error adding task: ', error);

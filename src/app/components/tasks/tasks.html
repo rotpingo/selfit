@@ -16,7 +16,19 @@
   <label class="form-label">task title</label>
   <input class="form-input" type="text" formControlName="title">
   <label class="form-label">task description</label>
-  <textarea class="form-textarea" rows="10" formControlName="description"></textarea>
+  <textarea class="form-textarea" rows="10" formControlName="content"></textarea>
+  <div class="form-inputs">
+    <div class="form-repeat-input">
+      <label class="form-label">repeat</label>
+      <input class="form-input-checkbox" type="checkbox" formControlName="repeat">
+    </div>
+    <div class="form-interval-input">
+      <label class="form-label">interval days</label>
+      <input class="form-input-number" type="number" formControlName="interval">
+    </div>
+  </div>
+  <label class="form-label">task date</label>
+  <input class="form-input-date" type="date" formControlName="execDate">
   <div class="form-btns">
     <button id="cancel-btn" type="button" (click)="onCloseForm()">cancel</button>
     <button id="create-btn" type="submit">create</button>
