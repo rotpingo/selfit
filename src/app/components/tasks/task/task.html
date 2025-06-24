@@ -1,7 +1,13 @@
 <div class="task">
-  <input class="task-title" type="text" value="{{this.task()?.title}}" [readOnly]="true">
-  <span>{{this.task()?.createdAt | date:'fullDate' }}</span>
+  <p class="task-title">{{this.task()?.title}}</p>
+  <span>created: {{this.task()?.createdAt | date:'fullDate' }}</span>
+  <span>execution date: {{this.task()?.execDate | date:'fullDate' }}</span>
   <textArea class="task-content" [readOnly]="true">{{this.task()?.content}}</textArea>
+  <label id="label-notes">notes</label>
+  <textArea class="task-notes"></textArea>
+  @if(this.task()?.isRepeat){
+    <p>next: {{this.task()?.interval}} add a function to calculate next date</p>
+  }
   <div class="task-btns">
     <button class="edit-btn" type="button" (click)="onEdit()">edit</button>
     <button class="delete-btn" type="button" (click)="onDelete()">delete</button>
@@ -16,6 +22,16 @@
   <input class="form-input" type="text" formControlName="title">
   <label class="form-label">task description</label>
   <textarea class="form-textarea" rows="10" formControlName="content"></textarea>
+  <div class="form-inputs">
+    <div class="form-repeat-input">
+      <label class="form-label">repeat</label>
+      <input class="form-input-checkbox" type="checkbox" formControlName="repeat">
+    </div>
+    <div class="form-interval-input">
+      <label class="form-label">interval days</label>
+      <input class="form-input-number" type="number" formControlName="interval">
+    </div>
+  </div>
   <label class="form-label">task date</label>
   <input class="form-input-date" type="date" formControlName="execDate">
   <div class="form-btns">
@@ -24,3 +40,4 @@
   </div>
 </form>
 }
+

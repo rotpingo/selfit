@@ -35,7 +35,7 @@
 }
 
 .add-task-form {
-  display: flex;
+  display: none;
   position: fixed;
   left: 50%;
   top: 40%;

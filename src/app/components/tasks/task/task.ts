@@ -29,6 +29,8 @@ export class Task {
     content: new FormControl('', {
       validators: [Validators.minLength(10), Validators.required],
     }),
+    repeat: new FormControl(false),
+    interval: new FormControl(1),
     execDate: new FormControl('', {
       validators: [Validators.required],
     }),
@@ -50,7 +52,10 @@ export class Task {
     this.isEditMode.set(true);
     this.taskForm.patchValue({
       title: this.task()?.title,
-      content: this.task()?.content
+      content: this.task()?.content,
+      repeat: this.task()?.isRepeat,
+      interval: this.task()?.interval ?? 0,
+      execDate: this.task()?.execDate
     });
   }
 
@@ -66,7 +71,9 @@ export class Task {
       parentId: 0,
       status: 'progress',
       isRepeat: false,
-      execDate: this.taskForm.value.execDate ?? ''
+      execDate: this.taskForm.value.execDate ?? '',
+      updatedAt: new Date(Date.now()),
+      createdAt: this.task()?.createdAt!
     }
 
     this.taskService.editTaskById(this.taskId, editTask);

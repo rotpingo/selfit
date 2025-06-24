@@ -21,13 +21,13 @@ export class Tasks {
 
   taskForm = new FormGroup({
     title: new FormControl('', {
-      validators: [Validators.maxLength(16), Validators.minLength(4), Validators.required],
+      validators: [Validators.maxLength(30), Validators.minLength(4), Validators.required],
     }),
     content: new FormControl('', {
       validators: [Validators.minLength(10), Validators.required],
     }),
     repeat: new FormControl(false),
-    interval: new FormControl(0),
+    interval: new FormControl(1),
     execDate: new FormControl('', {
       validators: [Validators.required],
     }),

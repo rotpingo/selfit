@@ -8,6 +8,6 @@ export interface TaskModel {
   status: 'done' | 'canceled' | 'progress';
   notes?: string;
   execDate: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
