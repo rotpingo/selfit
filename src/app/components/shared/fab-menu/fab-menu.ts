@@ -1,4 +1,4 @@
-import { Component, computed, effect, output, signal } from '@angular/core';
+import { Component, computed, output, signal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
@@ -21,11 +21,6 @@ export class FabMenu {
       .subscribe((event: NavigationEnd) => {
         this.currentRoute.set(event.urlAfterRedirects);
       });
-
-    // Debug: React to route changes
-    effect(() => {
-      console.log('Current Route:', this.currentRoute());
-    });
   }
   options = computed(() => {
 
