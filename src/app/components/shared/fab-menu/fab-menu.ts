@@ -1,0 +1,56 @@
+import { Component, computed, effect, output, signal } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
+
+@Component({
+  selector: 'app-fab-menu',
+  imports: [],
+  templateUrl: './fab-menu.html',
+  styleUrl: './fab-menu.css'
+})
+export class FabMenu {
+
+  action = output<string>();
+  isOpen = signal(false);
+  currentRoute = signal('');
+
+  constructor(private router: Router) {
+    // Listen to route changes
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.currentRoute.set(event.urlAfterRedirects);
+      });
+
+    // Debug: React to route changes
+    effect(() => {
+      console.log('Current Route:', this.currentRoute());
+    });
+  }
+  options = computed(() => {
+
+    const route = this.currentRoute();
+
+    if (route.includes('/tasks')) {
+      return [
+        { label: 'edit', key: 'edit' },
+        { label: 'delete', key: 'delete' },
+      ];
+    } else if (route.startsWith('/notes')) {
+      return [
+        { label: 'edit', key: 'edit' },
+        { label: 'delete', key: 'delete' },
+      ]
+    }
+
+    return [];
+  });
+
+  onEmitAction(key: string) {
+    this.action.emit(key);
+  }
+
+  toggle() {
+    this.isOpen.set(!this.isOpen());
+  }
+}

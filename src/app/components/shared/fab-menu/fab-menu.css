@@ -1,0 +1,38 @@
+.fab-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+}
+
+.fab-btn {
+  background: #edf;
+  color: white;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  border: none;
+  font-size: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn img {
+  width: 2rem;
+  height: 2rem;
+}
+
+.fab-options {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.fab-option {
+  margin: 5px 0;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}

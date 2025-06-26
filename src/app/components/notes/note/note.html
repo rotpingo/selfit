@@ -8,6 +8,8 @@
   </div>
 </div>
 
+<app-fab-menu (action)="onFabAction($event)" />
+
 @if(isEditMode()){
   <app-backdrop (close)="onCloseForm()" />
 

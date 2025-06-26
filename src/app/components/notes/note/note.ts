@@ -5,10 +5,11 @@ import { NoteModel } from '../../../model/note.model';
 import { Backdrop } from '../../shared/backdrop/backdrop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { FabMenu } from '../../shared/fab-menu/fab-menu';
 
 @Component({
   selector: 'app-note',
-  imports: [Backdrop, ReactiveFormsModule, DatePipe],
+  imports: [Backdrop, ReactiveFormsModule, DatePipe, FabMenu],
   templateUrl: './note.html',
   styleUrl: './note.css'
 })
@@ -64,5 +65,16 @@ export class Note {
 
     this.noteService.editNoteById(this.noteId, editNote);
     this.router.navigate(["/notes"]);
+  }
+
+  onFabAction(action: string) {
+    switch (action) {
+      case 'edit':
+        this.onEdit();
+        break;
+      case 'delete':
+        this.onDelete();
+        break;
+    }
   }
 }
