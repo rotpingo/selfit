@@ -33,13 +33,13 @@ export class FabMenu {
 
     if (route.includes('/tasks')) {
       return [
-        { label: 'edit', key: 'edit' },
-        { label: 'delete', key: 'delete' },
+        { icon: 'icons/edit.svg', key: 'edit' },
+        { icon: 'icons/delete.svg', key: 'delete' },
       ];
-    } else if (route.startsWith('/notes')) {
+    } else if (route.includes('/notes')) {
       return [
-        { label: 'edit', key: 'edit' },
-        { label: 'delete', key: 'delete' },
+        { icon: 'icons/edit.svg', key: 'edit' },
+        { icon: 'icons/delete.svg', key: 'delete' },
       ]
     }
 
