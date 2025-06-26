@@ -33,6 +33,12 @@
   color: #262626;
 }
 
+.add-note-btn img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+
 .add-note-form {
   display: none;
   position: fixed;

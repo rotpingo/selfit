@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { FabMenu } from '../shared/fab-menu/fab-menu';
-
 
 @Component({
   selector: 'app-home',
-  imports: [FabMenu],
+  imports: [],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
