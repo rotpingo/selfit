@@ -19,19 +19,23 @@
 
 .add-task-btn {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 2rem;
+  right: 2rem;
   height: 3rem;
   width: 3rem;
-  border-radius: 14px;
-  color: #252525;
-  border: 1px dashed #252525;
-  background: #e0e0e0;
-  font-size: 1.3rem;
+  border-radius: 50%;
+  background: #edf;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .add-task-btn:hover {
   color: #262626;
+}
+
+.add-task-btn img {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .add-task-form {

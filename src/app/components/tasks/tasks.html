@@ -9,7 +9,9 @@
 </div>
 }
 
-<button class="add-task-btn" (click)="onAddForm()">+</button>
+<button class="add-task-btn" (click)="onAddForm()">
+  <img src="icons/add.svg" alt="add">
+</button>
 
 <form class="add-task-form" [formGroup]="taskForm" (ngSubmit)="onCreate()" #form>
   <h3>new Task</h3>

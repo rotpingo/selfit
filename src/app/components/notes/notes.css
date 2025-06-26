@@ -19,15 +19,14 @@
 
 .add-note-btn {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 2rem;
+  right: 2rem;
   height: 3rem;
   width: 3rem;
-  border-radius: 14px;
-  color: #252525;
-  border: 1px dashed #252525;
-  background: #e0e0e0;
-  font-size: 1.3rem;
+  border-radius: 50%;
+  border: none;
+  background: #edf;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .add-note-btn:hover {
