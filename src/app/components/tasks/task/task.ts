@@ -5,10 +5,11 @@ import { TaskModel } from '../../../model/task.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Backdrop } from '../../shared/backdrop/backdrop';
+import { FabMenu } from '../../shared/fab-menu/fab-menu';
 
 @Component({
   selector: 'app-task',
-  imports: [DatePipe, ReactiveFormsModule, Backdrop],
+  imports: [DatePipe, ReactiveFormsModule, Backdrop, FabMenu],
   templateUrl: './task.html',
   styleUrl: './task.css'
 })
@@ -78,5 +79,16 @@ export class Task {
 
     this.taskService.editTaskById(this.taskId, editTask);
     this.router.navigate(["/notes"]);
+  }
+
+  onFabAction(action: string) {
+    switch (action) {
+      case 'edit':
+        this.onEdit();
+        break;
+      case 'delete':
+        this.onDelete();
+        break;
+    }
   }
 }

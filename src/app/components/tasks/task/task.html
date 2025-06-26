@@ -8,11 +8,9 @@
   @if(this.task()?.isRepeat){
     <p>next: {{this.task()?.interval}} add a function to calculate next date</p>
   }
-  <div class="task-btns">
-    <button class="edit-btn" type="button" (click)="onEdit()">edit</button>
-    <button class="delete-btn" type="button" (click)="onDelete()">delete</button>
-  </div>
 </div>
+
+<app-fab-menu (action)="onFabAction($event)" />
 
 @if(isEditMode()){
 <app-backdrop (close)="onCloseForm()" />
