@@ -96,20 +96,31 @@ export class Task {
     }
   }
 
-  onCompleteTask() {
-    const oldTask: TaskModel = {
+  saveValues(): TaskModel {
+    return {
       title: this.task()!.title,
       content: this.task()!.content,
       notes: this.oldTaskForm.value.notes ?? 'value',
       isRepeat: this.task()!.isRepeat,
       interval: this.task()?.interval,
-      status: 'done',
+      status: 'progress',
       updatedAt: this.task()!.updatedAt,
       createdAt: this.task()!.createdAt,
       execDate: this.task()!.execDate,
-      execAt: new Date(Date.now()),
     }
-    this.taskService.editTaskById(this.taskId, oldTask);
+  }
+
+  onCompleteTask() {
+    const task = this.saveValues();
+    task.status = 'done';
+    this.taskService.editTaskById(this.taskId, task);
+    this.router.navigate(["/tasks"]);
+  }
+
+  onCancelTask() {
+    const task = this.saveValues();
+    task.status = 'canceled';
+    this.taskService.editTaskById(this.taskId, task);
     this.router.navigate(["/tasks"]);
   }
 }
