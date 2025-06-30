@@ -1,21 +1,25 @@
-<div class="task">
+<form class="task-form" [formGroup]="oldTaskForm" (ngSubmit)="onCompleteTask()">
   <p class="task-title">{{this.task()?.title}}</p>
   <span>created: {{this.task()?.createdAt | date:'fullDate' }}</span>
   <span>execution date: {{this.task()?.execDate | date:'fullDate' }}</span>
-  <textArea class="task-content" [readOnly]="true">{{this.task()?.content}}</textArea>
+  <textarea class="task-content" [readOnly]="true">{{this.task()?.content}}</textarea>
   <label id="label-notes">notes</label>
-  <textArea class="task-notes"></textArea>
+  <textarea class="task-notes" formControlName="notes">{{this.task()?.notes}}</textarea>
   @if(this.task()?.isRepeat){
     <p>next: {{this.task()?.interval}} add a function to calculate next date</p>
   }
-</div>
+  <div class="task-end-btns">
+    <button id="cancel-btn" type="button">cancel</button>
+    <button id="save-btn" type="submit">done</button>
+  </div>
+</form>
 
 <app-fab-menu (action)="onFabAction($event)" />
 
 @if(isEditMode()){
 <app-backdrop (close)="onCloseForm()" />
 
-<form class="edit-form" [formGroup]="taskForm" (ngSubmit)="onSubmit()" #form>
+<form class="edit-form" [formGroup]="editTaskForm" (ngSubmit)="onEditTask()" #editForm>
   <label class="form-label">task title</label>
   <input class="form-input" type="text" formControlName="title">
   <label class="form-label">task description</label>

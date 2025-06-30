@@ -3,7 +3,7 @@ import { TaskModel } from "../model/task.model";
 import { db } from "../data/db";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { liveQuery } from "dexie";
-import { from } from "rxjs";
+import { from, Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +12,11 @@ export class TaskService {
 
   constructor() { }
 
-  getTasksSignal(): Signal<TaskModel[]> {
-    return toSignal(
-      liveQuery(() => db.tasks.toArray()),
-      { initialValue: [] }
+  getTasksSignal() {
+    const taskObservable = from(db.tasks.toArray()) as Observable<TaskModel[]>;
+    const tasks = toSignal(taskObservable, { initialValue: [] }
     );
+    return tasks;
   }
 
   getTasks(): Promise<TaskModel[]> {
@@ -45,8 +45,6 @@ export class TaskService {
   }
 
   async editTaskById(id: number, task: TaskModel) {
-    await this.deleteTaskById(id);
-    task.updatedAt = new Date(Date.now());
-    return await db.tasks.put(task, id);
+    return await db.tasks.update(id, task);
   }
 }

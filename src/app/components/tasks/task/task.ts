@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Signal, signal, viewChild } from '@angular/core';
+import { Component, effect, inject, OnInit, Signal, signal } from '@angular/core';
 import { TaskService } from '../../../services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskModel } from '../../../model/task.model';
@@ -21,9 +21,9 @@ export class Task {
   isEditMode = signal(false);
 
   taskId = parseInt(this.activeRoute.snapshot.paramMap.get('id')!);
-  task!: Signal<TaskModel | undefined>;
+  task: Signal<TaskModel | undefined> = this.taskService.getTaskSignalById(this.taskId);
 
-  taskForm = new FormGroup({
+  editTaskForm = new FormGroup({
     title: new FormControl('', {
       validators: [Validators.maxLength(16), Validators.minLength(4), Validators.required],
     }),
@@ -37,11 +37,16 @@ export class Task {
     }),
   });
 
-  form = viewChild.required<ElementRef<HTMLFormElement>>('form');
-
+  oldTaskForm = new FormGroup({
+    notes: new FormControl(''),
+  });
 
   constructor() {
-    this.task = this.taskService.getTaskSignalById(this.taskId);
+    effect(() => {
+      this.oldTaskForm.patchValue({
+        notes: this.task()?.notes,
+      })
+    });
   }
 
   onDelete() {
@@ -51,7 +56,7 @@ export class Task {
 
   onEdit() {
     this.isEditMode.set(true);
-    this.taskForm.patchValue({
+    this.editTaskForm.patchValue({
       title: this.task()?.title,
       content: this.task()?.content,
       repeat: this.task()?.isRepeat,
@@ -62,23 +67,23 @@ export class Task {
 
   onCloseForm() {
     this.isEditMode.set(false);
+    console.log(this.task());
   }
 
-  onSubmit() {
-
+  onEditTask() {
     const editTask: TaskModel = {
-      title: this.taskForm.value.title ?? '',
-      content: this.taskForm.value.content ?? '',
+      title: this.editTaskForm.value.title ?? '',
+      content: this.editTaskForm.value.content ?? '',
       parentId: 0,
       status: 'progress',
       isRepeat: false,
-      execDate: this.taskForm.value.execDate ?? '',
+      execDate: this.editTaskForm.value.execDate ?? '',
       updatedAt: new Date(Date.now()),
       createdAt: this.task()?.createdAt!
     }
 
     this.taskService.editTaskById(this.taskId, editTask);
-    this.router.navigate(["/notes"]);
+    this.router.navigate(["/tasks"]);
   }
 
   onFabAction(action: string) {
@@ -90,5 +95,26 @@ export class Task {
         this.onDelete();
         break;
     }
+  }
+
+  onCompleteTask() {
+
+    console.log(this.oldTaskForm);
+
+    const oldTask: TaskModel = {
+      title: this.task()!.title,
+      content: this.task()!.content,
+      notes: this.oldTaskForm.value.notes ?? 'value',
+      isRepeat: this.task()!.isRepeat,
+      interval: this.task()?.interval,
+      status: 'done',
+      updatedAt: this.task()!.updatedAt,
+      createdAt: this.task()!.createdAt,
+      execDate: this.task()!.execDate,
+      execAt: new Date(Date.now()),
+    }
+    console.log(oldTask);
+    this.taskService.editTaskById(this.taskId, oldTask);
+    this.router.navigate(["/tasks"]);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal, Signal, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, Signal, signal, viewChild } from '@angular/core';
 import { TaskModel } from '../../model/task.model';
 import { TaskService } from '../../services/task.service';
 import { RouterLink } from '@angular/router';
@@ -43,6 +43,7 @@ export class Tasks {
   onAddForm() {
     this.isFormOpen.set(true);
     this.form().nativeElement.style.display = "flex";
+    console.log(this.tasks());
   }
 
   async onCreate() {
