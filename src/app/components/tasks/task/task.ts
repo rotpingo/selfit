@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit, Signal, signal } from '@angular/core';
+import { Component, effect, inject, Signal, signal } from '@angular/core';
 import { TaskService } from '../../../services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskModel } from '../../../model/task.model';
@@ -67,7 +67,6 @@ export class Task {
 
   onCloseForm() {
     this.isEditMode.set(false);
-    console.log(this.task());
   }
 
   onEditTask() {
@@ -98,9 +97,6 @@ export class Task {
   }
 
   onCompleteTask() {
-
-    console.log(this.oldTaskForm);
-
     const oldTask: TaskModel = {
       title: this.task()!.title,
       content: this.task()!.content,
@@ -113,7 +109,6 @@ export class Task {
       execDate: this.task()!.execDate,
       execAt: new Date(Date.now()),
     }
-    console.log(oldTask);
     this.taskService.editTaskById(this.taskId, oldTask);
     this.router.navigate(["/tasks"]);
   }
