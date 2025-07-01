@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Signal, signal, viewChild } from '@angular/core';
+import { Component, effect, ElementRef, inject, Signal, signal, viewChild } from '@angular/core';
 import { TaskModel } from '../../model/task.model';
 import { TaskService } from '../../services/task.service';
 import { RouterLink } from '@angular/router';
@@ -28,10 +28,16 @@ export class Tasks {
     }),
     repeat: new FormControl(false),
     interval: new FormControl(1),
-    execDate: new FormControl('', {
+    execDate: new FormControl(new Date, {
       validators: [Validators.required],
     }),
   });
+
+  constructor() {
+    effect(() => {
+      this.tasks();
+    })
+  }
 
   onCloseForm() {
     this.form().nativeElement.style.display = "none";
@@ -47,9 +53,7 @@ export class Tasks {
   }
 
   async onCreate() {
-
     if (this.taskForm.valid) {
-
       const newTask: TaskModel = {
         title: this.taskForm.value.title!,
         content: this.taskForm.value.content!,
@@ -60,9 +64,7 @@ export class Tasks {
         execDate: this.taskForm.value.execDate!,
         updatedAt: new Date(Date.now()),
         createdAt: new Date(Date.now()),
-
       };
-
       try {
         await this.taskService.createTask(newTask);
         this.onCloseForm();
@@ -73,4 +75,5 @@ export class Tasks {
       console.log('Invalid Form')
     }
   }
+
 }

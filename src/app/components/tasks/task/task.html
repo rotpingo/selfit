@@ -8,10 +8,12 @@
   @if(this.task()?.isRepeat){
     <p>next: {{this.task()?.interval}} add a function to calculate next date</p>
   }
+  @if(task()?.status === 'progress'){
   <div class="task-end-btns">
     <button id="cancel-btn" type="button" (click)="onCancelTask()">cancel</button>
     <button id="save-btn" type="submit">done</button>
   </div>
+  }
 </form>
 
 <app-fab-menu (action)="onFabAction($event)" />

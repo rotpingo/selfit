@@ -32,7 +32,7 @@ export class Task {
     }),
     repeat: new FormControl(false),
     interval: new FormControl(1),
-    execDate: new FormControl('', {
+    execDate: new FormControl(new Date, {
       validators: [Validators.required],
     }),
   });
@@ -76,7 +76,7 @@ export class Task {
       parentId: 0,
       status: 'progress',
       isRepeat: false,
-      execDate: this.editTaskForm.value.execDate ?? '',
+      execDate: this.editTaskForm.value.execDate!,
       updatedAt: new Date(Date.now()),
       createdAt: this.task()?.createdAt!
     }
@@ -100,27 +100,44 @@ export class Task {
     return {
       title: this.task()!.title,
       content: this.task()!.content,
-      notes: this.oldTaskForm.value.notes ?? 'value',
+      notes: this.oldTaskForm.value.notes ?? '',
       isRepeat: this.task()!.isRepeat,
       interval: this.task()?.interval,
       status: 'progress',
       updatedAt: this.task()!.updatedAt,
       createdAt: this.task()!.createdAt,
       execDate: this.task()!.execDate,
+      execAt: new Date(Date.now())
     }
   }
 
-  onCompleteTask() {
+  async onCompleteTask() {
     const task = this.saveValues();
     task.status = 'done';
-    this.taskService.editTaskById(this.taskId, task);
+    await this.taskService.editTaskById(this.taskId, task);
+
+    if (task.isRepeat) {
+      task.status = 'progress';
+      const resultDate = new Date(task.execDate);
+      resultDate.setDate(resultDate.getDate() + task.interval!);
+      task.execDate = resultDate;
+      await this.taskService.createTask(task);
+    }
     this.router.navigate(["/tasks"]);
   }
 
-  onCancelTask() {
+  async onCancelTask() {
     const task = this.saveValues();
     task.status = 'canceled';
-    this.taskService.editTaskById(this.taskId, task);
+    await this.taskService.editTaskById(this.taskId, task);
+
+    if (task.isRepeat) {
+      task.status = 'progress';
+      const resultDate = new Date(task.execDate);
+      resultDate.setDate(resultDate.getDate() + task.interval!);
+      task.execDate = resultDate;
+      await this.taskService.createTask(task);
+    }
     this.router.navigate(["/tasks"]);
   }
 }
