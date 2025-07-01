@@ -1,40 +1,27 @@
-import { Injectable, Signal } from "@angular/core";
+import { Injectable, signal, Signal } from "@angular/core";
 import { TaskModel } from "../model/task.model";
 import { db } from "../data/db";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { liveQuery } from "dexie";
-import { from, Observable } from "rxjs";
+import { from } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  constructor() { }
+  private tasksSignal = signal<TaskModel[]>([]);
+  tasks = this.tasksSignal.asReadonly();
 
-  // tasks that are in progress
-  getTasksSignal() {
-    const taskObservable = from(db.tasks.toArray().then(
+  constructor() {
+    this.onLoadTasks();
+  }
+
+  async onLoadTasks() {
+    const tasks = await db.tasks.toArray().then(
       (tasks) => tasks.filter(task => task.status === 'progress')
-    )) as Observable<TaskModel[]>;
-    const tasks = toSignal(taskObservable, { initialValue: [] }
     );
-    return tasks;
-  }
-
-  // tasks that are in done or canceled
-  getEndedTasksSignal() {
-    const taskObservable = from(db.tasks.toArray().then(
-      (tasks) => tasks.filter(task => task.status !== 'progress')
-    )) as Observable<TaskModel[]>;
-    const tasks = toSignal(taskObservable, { initialValue: [] }
-    );
-    return tasks;
-  }
-
-
-  getTasks(): Promise<TaskModel[]> {
-    return db.tasks.toArray();
+    this.tasksSignal.set(tasks);
   }
 
   async createTask(task: TaskModel) {
@@ -42,6 +29,7 @@ export class TaskService {
     await db.tasks.update(id, { parentId: id });
 
     const newTask = await db.tasks.get(id);
+    await this.onLoadTasks();
     return newTask;
   }
 
@@ -59,6 +47,7 @@ export class TaskService {
   }
 
   async editTaskById(id: number, task: TaskModel) {
-    return await db.tasks.update(id, task);
+    await db.tasks.update(id, task);
+    return this.onLoadTasks();
   }
 }

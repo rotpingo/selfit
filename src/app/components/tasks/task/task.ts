@@ -55,6 +55,7 @@ export class Task {
   }
 
   onEdit() {
+    console.log(this.task());
     this.isEditMode.set(true);
     this.editTaskForm.patchValue({
       title: this.task()?.title,

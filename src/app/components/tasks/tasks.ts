@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Signal, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { TaskModel } from '../../model/task.model';
 import { TaskService } from '../../services/task.service';
 import { Router, RouterLink } from '@angular/router';
@@ -12,10 +12,9 @@ import { Backdrop } from '../shared/backdrop/backdrop';
   styleUrl: './tasks.css'
 })
 export class Tasks {
-
   taskService = inject(TaskService);
   router = inject(Router);
-  tasks: Signal<TaskModel[]> = this.taskService.getTasksSignal();
+  tasks = this.taskService.tasks;
 
   isFormOpen = signal<boolean>(false);
   form = viewChild.required<ElementRef<HTMLFormElement>>('form');
