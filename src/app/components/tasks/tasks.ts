@@ -1,7 +1,7 @@
-import { Component, effect, ElementRef, inject, Signal, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, Signal, signal, viewChild } from '@angular/core';
 import { TaskModel } from '../../model/task.model';
 import { TaskService } from '../../services/task.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Backdrop } from '../shared/backdrop/backdrop';
 
@@ -14,6 +14,7 @@ import { Backdrop } from '../shared/backdrop/backdrop';
 export class Tasks {
 
   taskService = inject(TaskService);
+  router = inject(Router);
   tasks: Signal<TaskModel[]> = this.taskService.getTasksSignal();
 
   isFormOpen = signal<boolean>(false);
@@ -33,23 +34,15 @@ export class Tasks {
     }),
   });
 
-  constructor() {
-    effect(() => {
-      this.tasks();
-    })
-  }
-
   onCloseForm() {
     this.form().nativeElement.style.display = "none";
     this.isFormOpen.set(false);
     this.taskForm.reset();
-    console.log(this.tasks());
   }
 
   onAddForm() {
     this.isFormOpen.set(true);
     this.form().nativeElement.style.display = "flex";
-    console.log(this.tasks());
   }
 
   async onCreate() {
@@ -68,6 +61,7 @@ export class Tasks {
       try {
         await this.taskService.createTask(newTask);
         this.onCloseForm();
+        this.router.navigate(['/tasks']);
       } catch (error) {
         console.error('Error adding task: ', error);
       }

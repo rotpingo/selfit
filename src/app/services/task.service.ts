@@ -22,7 +22,7 @@ export class TaskService {
     return tasks;
   }
 
-  // tasks that are done or canceled
+  // tasks that are in done or canceled
   getEndedTasksSignal() {
     const taskObservable = from(db.tasks.toArray().then(
       (tasks) => tasks.filter(task => task.status !== 'progress')
