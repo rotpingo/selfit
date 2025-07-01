@@ -4,10 +4,11 @@ import { TaskService } from '../../services/task.service';
 import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Backdrop } from '../shared/backdrop/backdrop';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tasks',
-  imports: [RouterLink, Backdrop, ReactiveFormsModule],
+  imports: [RouterLink, Backdrop, ReactiveFormsModule, DatePipe],
   templateUrl: './tasks.html',
   styleUrl: './tasks.css'
 })
