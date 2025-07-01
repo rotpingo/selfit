@@ -1,4 +1,4 @@
-import { Injectable, signal, Signal } from "@angular/core";
+import { computed, Injectable, signal, Signal } from "@angular/core";
 import { TaskModel } from "../model/task.model";
 import { db } from "../data/db";
 import { toSignal } from "@angular/core/rxjs-interop";
@@ -11,16 +11,16 @@ import { from } from "rxjs";
 export class TaskService {
 
   private tasksSignal = signal<TaskModel[]>([]);
-  tasks = this.tasksSignal.asReadonly();
+
+  tasks = computed(() => this.tasksSignal().filter(task => task.status === 'progress'));
+  doneTasks = computed(() => this.tasksSignal().filter(task => task.status !== 'progress'));
 
   constructor() {
     this.onLoadTasks();
   }
 
   async onLoadTasks() {
-    const tasks = await db.tasks.toArray().then(
-      (tasks) => tasks.filter(task => task.status === 'progress')
-    );
+    const tasks = await db.tasks.toArray();
     this.tasksSignal.set(tasks);
   }
 

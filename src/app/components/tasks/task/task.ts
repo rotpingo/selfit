@@ -119,11 +119,12 @@ export class Task {
 
     if (task.isRepeat) {
       task.status = 'progress';
-      const resultDate = new Date(task.execDate);
+      const resultDate = new Date(task.execAt!);
       resultDate.setDate(resultDate.getDate() + task.interval!);
       task.execDate = resultDate;
       await this.taskService.createTask(task);
     }
+
     this.router.navigate(["/tasks"]);
   }
 
@@ -134,11 +135,12 @@ export class Task {
 
     if (task.isRepeat) {
       task.status = 'progress';
-      const resultDate = new Date(task.execDate);
+      const resultDate = new Date(task.execAt!);
       resultDate.setDate(resultDate.getDate() + task.interval!);
       task.execDate = resultDate;
       await this.taskService.createTask(task);
     }
+
     this.router.navigate(["/tasks"]);
   }
 }
