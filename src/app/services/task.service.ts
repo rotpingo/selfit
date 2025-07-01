@@ -12,12 +12,26 @@ export class TaskService {
 
   constructor() { }
 
+  // tasks that are in progress
   getTasksSignal() {
-    const taskObservable = from(db.tasks.toArray()) as Observable<TaskModel[]>;
+    const taskObservable = from(db.tasks.toArray().then(
+      (tasks) => tasks.filter(task => task.status === 'progress')
+    )) as Observable<TaskModel[]>;
     const tasks = toSignal(taskObservable, { initialValue: [] }
     );
     return tasks;
   }
+
+  // tasks that are done or canceled
+  getEndedTasksSignal() {
+    const taskObservable = from(db.tasks.toArray().then(
+      (tasks) => tasks.filter(task => task.status !== 'progress')
+    )) as Observable<TaskModel[]>;
+    const tasks = toSignal(taskObservable, { initialValue: [] }
+    );
+    return tasks;
+  }
+
 
   getTasks(): Promise<TaskModel[]> {
     return db.tasks.toArray();
