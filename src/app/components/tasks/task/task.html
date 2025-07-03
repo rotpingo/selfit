@@ -6,7 +6,7 @@
   <label id="label-notes">notes</label>
   <textarea class="task-notes" formControlName="notes">{{this.task()?.notes}}</textarea>
   @if(this.task()?.isRepeat){
-    <p>next: {{this.task()?.interval}} add a function to calculate next date</p>
+    <p>next task Date: {{this.nextDate() | date:'EEEE, d MMMM'}}</p>
   }
   @if(task()?.status === 'progress'){
   <div class="task-end-btns">

@@ -66,6 +66,13 @@ export class Task {
     });
   }
 
+  nextDate() {
+    const nextDate = new Date(this.task()!.execDate);
+    nextDate.setDate(nextDate.getDate() + this.task()?.interval!);
+    return nextDate;
+  }
+
+
   onCloseForm() {
     this.isEditMode.set(false);
   }
