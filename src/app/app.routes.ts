@@ -4,6 +4,7 @@ import { Home } from './components/home/home';
 import { Note } from './components/notes/note/note';
 import { Tasks } from './components/tasks/tasks';
 import { Task } from './components/tasks/task/task';
+import { Expanses } from './components/expanses/expanses';
 
 export const routes: Routes = [
   {
@@ -25,5 +26,9 @@ export const routes: Routes = [
   {
     path: 'tasks/:id',
     component: Task
+  },
+  {
+    path: 'expanses',
+    component: Expanses
   }
 ];
