@@ -27,5 +27,19 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-fallback",
+      "urls": [
+        "/api/**"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 50,
+        "maxAge": "3d",
+        "timeout": "5s"
+      }
+    }
   ]
 }
