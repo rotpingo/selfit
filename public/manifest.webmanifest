@@ -6,6 +6,26 @@
   "start_url": "./",
   "icons": [
     {
+      "src": "icons/add.svg",
+      "type": "image/svg",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/edit.svg",
+      "type": "image/svg",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "icons/delete.svg",
+      "type": "image/svg",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "menu.svg",
+      "type": "image/svg",
+      "purpose": "maskable any"
+    },
+    {
       "src": "icons/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png",
