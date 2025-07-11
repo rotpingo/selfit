@@ -2,8 +2,8 @@
   "name": "selfit",
   "short_name": "selfit",
   "display": "standalone",
-  "scope": "./",
-  "start_url": "./",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "icons/add.svg",
